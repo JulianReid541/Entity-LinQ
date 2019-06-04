@@ -28,7 +28,7 @@ namespace CustomerMaintenance
             if (addCustomer)
             {
                 this.Text = "Add Customer";
-                cboStates.SelectedIndex = -1;
+                cboStates.SelectedIndex = 0;
             }
             else
             {
@@ -44,6 +44,12 @@ namespace CustomerMaintenance
                 // *** Code a query to retrieve the required information from
                 // the States table, and sort the results by state name.
                 // Bind the State combo box to the query results.
+                List<State> states = MMABooksEntity.mmaBooks.States.OrderBy(s => s.StateName).ToList();
+                cboStates.DataSource = states;
+                cboStates.DisplayMember = "StateName";
+                cboStates.ValueMember = "StateCode";
+
+                cboStates.SelectedItem = states[0];                
             }
             catch (Exception ex)
             {

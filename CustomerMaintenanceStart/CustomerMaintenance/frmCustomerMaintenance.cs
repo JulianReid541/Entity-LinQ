@@ -37,7 +37,7 @@ namespace CustomerMaintenance
             {
                 // *** Code a query to retrieve the selected customer
                 // and store the Customer object in selectedCustomer.
-
+                selectedCustomer = MMABooksEntity.mmaBooks.Customers.Where(c => c.CustomerID == CustomerID).SingleOrDefault<Customer>();
                 if (selectedCustomer == null)
                 {
                     MessageBox.Show("No customer found with this ID. " +
@@ -125,6 +125,9 @@ namespace CustomerMaintenance
                 {
                     // *** remove the customer from the set of customers.
                     // save the changes back to the database.
+                    MMABooksEntity.mmaBooks.Customers.Remove(selectedCustomer);
+                    MMABooksEntity.mmaBooks.SaveChanges();
+
 
                     txtCustomerID.Text = "";
                     this.ClearControls();

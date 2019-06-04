@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CustomerMaintenance
-{
+{ 
     public partial class Form1 : Form
     {
         public Form1()
@@ -20,12 +20,12 @@ namespace CustomerMaintenance
         private void fillComboButton_Click(object sender, EventArgs e)
         {
             // *** Use both syntax to get a list of state objects sorted by statename
-            List<State> states = MMABooksEntity.mmaBooks.States.OrderBy(s => s.StateName).ToList();
-            //List<State> states = (from state in MMABooksEntity.mmaBooks.States orderby state.StateCode select state).ToList();
+            //List<State> states = MMABooksEntity.mmaBooks.States.OrderBy(s => s.StateName).ToList();
+            //List<State> states = (from state in MMABooksEntity.mmaBooks.States orderby state.StateName select state).ToList();
             // *** bind the list to a combo box
-            comboBox1.DataSource = states;
-            comboBox1.DisplayMember = "StateName";
-            comboBox1.ValueMember = "StateCode";
+            //comboBox1.DataSource = states;
+            //comboBox1.DisplayMember = "StateName";
+            //comboBox1.ValueMember = "StateCode";
 
             // *** Use lambda expression syntax to get sorted list of customers
             //List<Customer> customers = MMABooksEntity.mmaBooks.Customers.OrderBy(c => c.Name).ToList();
@@ -43,7 +43,7 @@ namespace CustomerMaintenance
             //Get a list of products with a unit price of 56.50 sorted by product name
 
 
-        }
+    }
 
         private void fillGridButton_Click(object sender, EventArgs e)
         {
@@ -55,13 +55,13 @@ namespace CustomerMaintenance
             //                 join s in MMABooksEntity.mmaBooks.States
             //                 on c.State equals s.StateCode
             //                 orderby c.Name select new { c.CustomerID, c.Name, c.State, s.StateName }).ToList();
-            //var customers = MMABooksEntity.mmaBooks.Customers.Join(
-            //    MMABooksEntity.mmaBooks.States,
-            //    c => c.State,
-            //    s => s.StateCode,
-            //    (c, s) => new { c.CustomerID, c.Name, c.State, s.StateName }).OrderBy(r => r.StateName).ToList();
-            
-            //dataGridView1.DataSource = customers;
+            var customers = MMABooksEntity.mmaBooks.Customers.Join(
+                MMABooksEntity.mmaBooks.States,
+                c => c.State,
+                s => s.StateCode,
+                (c, s) => new { c.CustomerID, c.Name, c.State, s.StateName }).OrderBy(r => r.StateName).ToList();
+
+            dataGridView1.DataSource = customers;
 
             // *** Can you use both syntax to
             // Get a list of Invoices
